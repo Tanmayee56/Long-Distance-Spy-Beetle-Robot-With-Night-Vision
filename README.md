@@ -81,5 +81,5 @@ void stopRobot() {
   server.send(200, "text/plain", "Stopped");
 }
 
-Designed and developed a compact IoT-enabled spy beetle robot using Arduino, capable of long-distance wireless control and real-time surveillance. Integrated night vision camera for low-light monitoring, remote data transmission, and efficient motor control. The project demonstrates skills in embedded systems, IoT communication, sensor integration, and robotics for surveillance applications.
+//Designed and developed a compact IoT-enabled spy beetle robot using Arduino, capable of long-distance wireless control and real-time surveillance. Integrated night vision camera for low-light monitoring, remote data transmission, and efficient motor control. The project demonstrates skills in embedded systems, IoT communication, sensor integration, and robotics for surveillance applications.
 Special thanks to my team members: Akshitha and Suma Varshini. 
