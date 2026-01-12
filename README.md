@@ -1,2 +1,85 @@
+#include <WiFi.h>
+#include <WebServer.h>
+
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+WebServer server(80);
+
+#define IN1 26
+#define IN2 27
+#define IN3 14
+#define IN4 12
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println();
+  Serial.println(WiFi.localIP());
+
+  server.on("/forward", moveForward);
+  server.on("/backward", moveBackward);
+  server.on("/left", turnLeft);
+  server.on("/right", turnRight);
+  server.on("/stop", stopRobot);
+
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+}
+
+void moveForward() {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  server.send(200, "text/plain", "Forward");
+}
+
+void moveBackward() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  server.send(200, "text/plain", "Backward");
+}
+
+void turnLeft() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  server.send(200, "text/plain", "Left");
+}
+
+void turnRight() {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  server.send(200, "text/plain", "Right");
+}
+
+void stopRobot() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  server.send(200, "text/plain", "Stopped");
+}
+
 Designed and developed a compact IoT-enabled spy beetle robot using Arduino, capable of long-distance wireless control and real-time surveillance. Integrated night vision camera for low-light monitoring, remote data transmission, and efficient motor control. The project demonstrates skills in embedded systems, IoT communication, sensor integration, and robotics for surveillance applications.
 Special thanks to my team members: Akshitha and Suma Varshini. 
